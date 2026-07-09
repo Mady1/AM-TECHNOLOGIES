@@ -40,10 +40,21 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .section-title h2 {
-  font-size: 2.25rem;
-  margin-bottom: 1rem;
+  font-size: 2.4rem;
+  margin-bottom: 1.25rem;
   position: relative;
   display: inline-block;
+  font-weight: 800;
+}
+
+.section-title h2::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sylamtech-primary), var(--sylamtech-success));
+  border-radius: 2px;
+  margin: 14px auto 0;
 }
 
 .section-title p {
@@ -51,6 +62,12 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--sylamtech-text-muted);
   max-width: 640px;
   margin: 0 auto;
+}
+
+.section-title.text-start h2::after,
+.section-title.text-left h2::after {
+  margin-left: 0;
+  margin-right: auto;
 }
 
 /* ---------- Header / Navigation ---------- */
@@ -124,7 +141,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---------- Hero Section ---------- */
 .hero {
-  padding: 140px 0 100px;
+  padding: 160px 0 120px;
   background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 50%, #f8fafc 100%);
   position: relative;
   overflow: hidden;
@@ -135,17 +152,70 @@ h1, h2, h3, h4, h5, h6 {
   position: absolute;
   top: -20%;
   right: -10%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 70%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(14,165,233,0.12) 0%, transparent 70%);
   pointer-events: none;
 }
 
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(14, 165, 233, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(14, 165, 233, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 80%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 80%);
+}
+
+.hero-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.5;
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-shape-1 {
+  width: 300px;
+  height: 300px;
+  background: rgba(14, 165, 233, 0.25);
+  top: 15%;
+  right: 20%;
+  animation: float 8s ease-in-out infinite;
+}
+.hero-shape-2 {
+  width: 200px;
+  height: 200px;
+  background: rgba(30, 58, 138, 0.18);
+  bottom: 20%;
+  right: 8%;
+  animation: float 10s ease-in-out infinite reverse;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-25px) scale(1.05); }
+}
+
 .hero-headline {
-  font-size: 3.2rem;
+  font-size: 3.4rem;
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.08;
   margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, var(--sylamtech-secondary) 0%, var(--sylamtech-primary) 60%, var(--sylamtech-success) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-content,
+.stats-grid {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-text {
@@ -201,6 +271,23 @@ h1, h2, h3, h4, h5, h6 {
   text-decoration: none;
   box-shadow: 0 8px 25px rgba(14, 165, 233, 0.35);
   transition: var(--sylamtech-transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+  transition: left 0.6s ease;
+}
+
+.cta-button:hover::before {
+  left: 100%;
 }
 
 .cta-button:hover {
@@ -220,6 +307,36 @@ h1, h2, h3, h4, h5, h6 {
 
 .cta-link:hover {
   color: var(--sylamtech-secondary);
+}
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--sylamtech-text-muted);
+  font-size: 0.8rem;
+  text-decoration: none;
+  z-index: 2;
+  opacity: 0.7;
+  transition: var(--sylamtech-transition);
+}
+.scroll-indicator:hover {
+  opacity: 1;
+  color: var(--sylamtech-primary);
+}
+.scroll-indicator i {
+  animation: bounce 2s infinite;
+  font-size: 1.4rem;
+}
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
 }
 
 .stats-grid {
@@ -266,11 +383,29 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ---------- Section Spacing ---------- */
 section {
-  padding: 100px 0;
+  padding: 110px 0;
+  position: relative;
+}
+
+section + section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--sylamtech-primary), var(--sylamtech-success));
+  border-radius: 2px;
+  opacity: 0.3;
 }
 
 .section.light-background {
   background: var(--sylamtech-bg) !important;
+}
+
+.section.alt-background {
+  background: linear-gradient(180deg, var(--sylamtech-bg) 0%, #ffffff 100%);
 }
 
 /* ---------- Cards ---------- */
@@ -289,8 +424,8 @@ section {
 .service-card:hover,
 .featured:hover {
   transform: translateY(-6px);
-  box-shadow: var(--sylamtech-shadow-lg);
-  border-color: rgba(14, 165, 233, 0.15);
+  box-shadow: var(--sylamtech-shadow-lg), 0 0 0 1px rgba(14, 165, 233, 0.1);
+  border-color: rgba(14, 165, 233, 0.2);
 }
 
 .service-card .icon-wrapper {
@@ -304,6 +439,12 @@ section {
   justify-content: center;
   font-size: 1.5rem;
   margin-bottom: 20px;
+  transition: var(--sylamtech-transition);
+}
+
+.service-card:hover .icon-wrapper {
+  transform: scale(1.08) rotate(-3deg);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
 }
 
 .service-card.featured .icon-wrapper {
@@ -366,8 +507,9 @@ section {
 }
 
 .capability-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--sylamtech-shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: var(--sylamtech-shadow-lg), 0 0 0 1px rgba(14, 165, 233, 0.1);
+  border-color: rgba(14, 165, 233, 0.2);
 }
 
 .capability-icon {
@@ -381,6 +523,12 @@ section {
   justify-content: center;
   font-size: 1.5rem;
   margin: 0 auto 16px;
+  transition: var(--sylamtech-transition);
+}
+
+.capability-card:hover .capability-icon {
+  transform: scale(1.1) rotate(-3deg);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
 }
 
 /* ---------- Why Us / Features ---------- */
@@ -395,8 +543,9 @@ section {
 }
 
 .why-us .feature-box:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--sylamtech-shadow-lg);
+  transform: translateY(-6px);
+  box-shadow: var(--sylamtech-shadow-lg), 0 0 0 1px rgba(14, 165, 233, 0.1);
+  border-color: rgba(14, 165, 233, 0.2);
 }
 
 .why-us .feature-box.highlight {
@@ -415,6 +564,12 @@ section {
   justify-content: center;
   font-size: 1.4rem;
   margin-bottom: 16px;
+  transition: var(--sylamtech-transition);
+}
+
+.why-us .feature-box:hover .feature-icon {
+  transform: scale(1.1) rotate(3deg);
+  box-shadow: 0 8px 20px rgba(14, 165, 233, 0.25);
 }
 
 .process-timeline {
@@ -1265,6 +1420,21 @@ section {
   color: #fff;
 }
 
+.mobile-cta-btn:active {
+  transform: scale(0.96);
+}
+
+.mobile-cta-call:hover {
+  background: rgba(14, 165, 233, 0.18);
+}
+.mobile-cta-whatsapp:hover {
+  background: rgba(37, 211, 102, 0.2);
+}
+.mobile-cta-book:hover {
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.35);
+  color: #fff;
+}
+
 /* ---------- Cookie Consent ---------- */
 .cookie-consent {
   background: var(--sylamtech-text) !important;
@@ -1395,11 +1565,34 @@ section {
   .hero-headline {
     font-size: 2.4rem;
   }
+  .hero {
+    padding: 120px 0 90px;
+  }
   .section-title h2 {
     font-size: 1.9rem;
   }
   section {
     padding: 70px 0;
+  }
+  .mobile-nav-toggle {
+    font-size: 1.6rem;
+    color: var(--sylamtech-primary);
+    transition: var(--sylamtech-transition);
+  }
+  .mobile-nav-toggle:hover {
+    color: var(--sylamtech-secondary);
+  }
+  .navmenu {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    border-radius: var(--sylamtech-radius);
+    box-shadow: var(--sylamtech-shadow-lg);
+    padding: 16px;
+    margin-top: 12px;
+  }
+  .navmenu a {
+    padding: 12px 0 !important;
+    font-size: 1rem;
   }
   .cta-section {
     padding: 40px;
