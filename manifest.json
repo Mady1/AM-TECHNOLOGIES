@@ -1,0 +1,22 @@
+{
+  "name": "Sylamtech Group",
+  "short_name": "Sylamtech",
+  "description": "Intégrateur IT en Afrique de l'Ouest — communications unifiées, infrastructure, cybersécurité et sécurité organisationnelle.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "assets/img/favicon.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/img/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

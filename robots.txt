@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://www.sylamtechgroup.com/sitemap.xml
+
+# Block access to vendor assets and forms processing
+Disallow: /assets/vendor/
+Disallow: /forms/
